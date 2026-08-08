@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import 'sql.js'; // Force Vercel static bundler to include the sql.js npm package in the lambda deployment
 import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { AppModule } from '../src/app.module';
