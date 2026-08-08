@@ -1,0 +1,29 @@
+# Node modules
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Next.js build output
+.next/
+frontend/.next/
+
+# NestJS build output
+dist/
+backend/dist/
+
+# SQLite databases
+*.sqlite
+*.sqlite-journal
+backend/*.sqlite
+backend/*.sqlite-journal
+
+# Environment files
+.env
+.env.local
+.env.production
+backend/.env
+frontend/.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
