@@ -17,7 +17,7 @@ import { Task } from './tasks/entities/task.entity';
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'better-sqlite3' as any,
-      database: 'db.sqlite',
+      database: process.env.VERCEL ? '/tmp/db.sqlite' : 'db.sqlite',
       entities: [User, Project, Task],
       synchronize: true, // Auto create schemas (good for prototype/demo)
     }),
