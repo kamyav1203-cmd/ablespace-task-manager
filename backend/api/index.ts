@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { AppModule } from '../src/app.module';
@@ -25,6 +26,7 @@ server.use(async (req, res, next) => {
     await bootstrap();
     next();
   } catch (err) {
+    console.error('NestJS Bootstrap Error:', err);
     next(err);
   }
 });
