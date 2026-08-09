@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AbleSpace - Application Walkthrough</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #18181b;
+      --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --text: #374151;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --bg: #ffffff;
+      --card-bg: #f9fafb;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: var(--bg);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Outfit', sans-serif;
+      color: var(--primary);
+      font-weight: 700;
+    }
+    
+    /* PDF Print Styles */
+    @page {
+      size: A4;
+      margin: 2cm;
+    }
+    
+    @media print {
+      body {
+        background: #fff;
+      }
+      .page-break {
+        page-break-before: always;
+        break-before: page;
+      }
+      .no-break {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    /* Cover Page */
+    .cover {
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 40px 0;
+    }
+    
+    .cover-header {
+      border-left: 5px solid var(--accent);
+      padding-left: 20px;
+    }
+    
+    .cover-title {
+      font-size: 3.2rem;
+      line-height: 1.1;
+      margin-bottom: 10px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    
+    .cover-subtitle {
+      font-size: 1.4rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    
+    .cover-hero {
+      width: 100%;
+      margin: 40px 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    }
+    
+    .cover-hero img {
+      width: 100%;
+      display: block;
+    }
+    
+    .cover-footer {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      font-size: 0.95rem;
+    }
+    
+    .meta-item {
+      margin-bottom: 5px;
+    }
+    
+    .meta-label {
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    /* Main Content Styling */
+    .section-title {
+      font-size: 2.2rem;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    
+    .sub-section-title {
+      font-size: 1.5rem;
+      margin: 25px 0 15px 0;
+      color: var(--primary);
+    }
+    
+    p {
+      margin-bottom: 15px;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+    
+    /* Lists */
+    ul {
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+    
+    li {
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+    
+    /* Screenshot Block */
+    .screenshot-block {
+      margin: 30px 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--card-bg);
+      padding: 16px;
+    }
+    
+    .screenshot-img-container {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+    
+    .screenshot-img-container img {
+      width: 100%;
+      display: block;
+    }
+    
+    .screenshot-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--primary);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    
+    .screenshot-details {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    
+    .detail-group {
+      margin-bottom: 5px;
+    }
+    
+    .detail-label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 3px;
+    }
+    
+    .detail-content {
+      font-size: 1rem;
+      color: var(--text);
+    }
+    
+    /* Grid layout */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 20px 0;
+    }
+    
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+    
+    /* User Journey Flow */
+    .journey-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 25px 0;
+    }
+    
+    .journey-step {
+      display: flex;
+      align-items: center;
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+    }
+    
+    .step-number {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin-right: 15px;
+      background: #fff;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .step-text {
+      font-weight: 500;
+      font-size: 1.05rem;
+      color: var(--primary);
+    }
+    
+    /* Highlight Alert */
+    .alert {
+      background: #fafafa;
+      border-left: 4px solid #71717a;
+      padding: 15px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+    
+    .alert-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--primary);
+    }
+    
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- 1. COVER PAGE -->
+    <div class="cover">
+      <div class="cover-header">
+        <h1 class="cover-title">AbleSpace —<br>Application Walkthrough</h1>
+        <div class="cover-subtitle">A visual walkthrough of the application, functionality, and implementation</div>
+      </div>
+      
+      <div class="cover-hero">
+        <img src="docs/screenshots/tasks-list.png" alt="AbleSpace Tasks Dashboard Hero">
+      </div>
+      
+      <div class="cover-footer">
+        <div>
+          <div class="meta-item"><span class="meta-label">Project Type:</span> Full-Stack Web Application</div>
+          <div class="meta-item"><span class="meta-label">Walkthrough:</span> Screenshots of the working application</div>
+          <div class="meta-item"><span class="meta-label">Purpose:</span> Demonstrating the implemented product, functionality, and technical work</div>
+        </div>
+        <div style="text-align: right; align-self: flex-end;">
+          <div class="meta-label">Candidate Submission</div>
+          <div style="color: var(--text-muted);">AbleSpace Task Manager</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <!-- 2. ABOUT ABLESPACE -->
+    <div class="no-break">
+      <h2 class="section-title">2. About AbleSpace</h2>
+      <p>AbleSpace is a purpose-built caseload management and collaboration workspace designed specifically for therapists, special educators, and speech-language pathologists (SLPs). In clinical and educational therapy settings, professionals struggle with highly fragmented task flows, keeping track of multi-student sessions, handling varying priority caseload directives, and documenting progress milestones.</p>
+      <p>This application addresses this problem by providing a cohesive workspace to track tasks, organize projects, assign workloads, and customize preferences. By organizing the daily caseload operations into a unified workspace, the app helps therapists focus on delivering quality care rather than managing administrative overhead.</p>
+      <p>As a development project, AbleSpace demonstrates end-to-end full-stack software development. It ties a React-based Next.js interface to a NestJS database api, incorporating rich client-side states, dynamic route compilation, relational database models, and an automated, stateless deployment pipeline.</p>
+    </div>
+    
+    <!-- 3. WHAT I BUILT -->
+    <div class="no-break">
+      <h2 class="section-title">3. What I Built</h2>
+      <p>I built the entire full-stack task manager application, implementing the visual interface, backend infrastructure, database relations, and deployment scripting. The scope of implementation covers the following key areas:</p>
+      
+      <div class="grid">
+        <div class="card">
+          <div class="card-title">Application Interface & UX</div>
+          <p style="font-size: 0.95rem; margin-bottom: 0;">Designed a high-contrast theme layout featuring collapsible tables, task cards, animated sliding drawers, context dropdowns, and clean status indicators.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Caseload & Workspace Logic</div>
+          <p style="font-size: 0.95rem; margin-bottom: 0;">Developed reactive list filtering, an interactive search engine, dynamic column visibilities, and dual-layout modes (List & Kanban Board).</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Form Validations & Safety</div>
+          <p style="font-size: 0.95rem; margin-bottom: 0;">Created modal input forms for adding projects and tasks. Integrated client-side validations and NestJS class-validators to enforce clean data boundaries.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Relational Database & Sync</div>
+          <p style="font-size: 0.95rem; margin-bottom: 0;">Modeled TypeORM relationships (One-to-Many, Many-to-One) between Users, Projects, and Tasks with database autoseeding on startup.</p>
+        </div>
+      </div>
+      
+      <ul>
+        <li><strong>Backend REST API</strong>: Engineered NestJS controllers, services, and modules to expose clean CRUD endpoints for caseload entities.</li>
+        <li><strong>Adaptive Database Hot-Swapping</strong>: Integrated conditional database drivers using Wasm-based in-memory SQLite on Vercel to bypass read-only filesystem limits, while maintaining file-based SQLite locally.</li>
+        <li><strong>Persistent Customizations</strong>: Created a theme toggle and custom color modes (Amber, Blue, Pink) utilizing React Context and localStorage synchronization.</li>
+      </ul>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <!-- 4. APPLICATION WALKTHROUGH -->
+    <h2 class="section-title">4. Application Walkthrough</h2>
+    <p>The following screens demonstrate the visual interface, actual user flows, and backend-connected functionalities of the running application.</p>
+    
+    <!-- SCREENSHOT 1 -->
+    <div class="screenshot-block no-break">
+      <h3 class="screenshot-title">Screenshot 1 — Unified Caseload Tasks Workspace</h3>
+      <div class="screenshot-img-container">
+        <img src="docs/screenshots/tasks-list.png" alt="Unified Caseload Tasks Workspace">
+      </div>
+      
+      <div class="screenshot-details">
+        <div class="detail-group">
+          <div class="detail-label">What you're seeing</div>
+          <div class="detail-content">The main tasks dashboard for the logged-in therapist (Dexter). Tasks are grouped by their clinical execution status: To Do, Doing, Completed, and On Hold.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">What the user can do</div>
+          <div class="detail-content">Therapists can search for tasks, filter them dynamically, collapse/expand status categories, view priority weights, identify assignees, and add new tasks directly to each list.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">What I implemented</div>
+          <div class="detail-content">Developed the UI using Tailwind CSS, implemented status-based sorting logic, designed the search filter algorithm, and integrated initials-based round avatar components for the assignees.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">How it works</div>
+          <div class="detail-content">When the page loads, a React <code>useEffect</code> triggers an API call to the NestJS <code>/api/tasks</code> endpoint. The backend queries the SQLite database, returning a structured JSON list of tasks, which the frontend sorts and binds to the UI state.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">Why it matters</div>
+          <div class="detail-content">This view provides therapists with an immediate summary of their daily workload, reducing cognitive load and helping prioritize urgent care items.</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <!-- SCREENSHOT 2 -->
+    <div class="screenshot-block no-break">
+      <h3 class="screenshot-title">Screenshot 2 — Interactive Layout & Column Customizer</h3>
+      <div class="screenshot-img-container">
+        <img src="docs/screenshots/tasks-filters.png" alt="Interactive Layout & Column Customizer">
+      </div>
+      
+      <div class="screenshot-details">
+        <div class="detail-group">
+          <div class="detail-label">What you're seeing</div>
+          <div class="detail-content">The workspace layout customizer dropdown overlaying the tasks dashboard.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">What the user can do</div>
+          <div class="detail-content">Users can toggle the layout between "List" and "Board" views, and check/uncheck columns (Priority, Members, Due Date, Labels, Status) to instantly customize column visibility.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">What I implemented</div>
+          <div class="detail-content">Designed the interactive customizer dropdown using React state variables, added click-away listeners to automatically dismiss the dropdown, and implemented dynamic CSS grid classes that adapt according to the checked column options.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">How it works</div>
+          <div class="detail-content">The visibility state is managed via React Context. Changing checkbox options updates this context, causing the task rows to conditionally render columns depending on whether their respective state keys are truthy.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">Why it matters</div>
+          <div class="detail-content">Therapists frequently work on varying devices (laptops, tablets). Allowing them to customize column visibility prevents UI overcrowding on smaller screens.</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <!-- SCREENSHOT 3 -->
+    <div class="screenshot-block no-break">
+      <h3 class="screenshot-title">Screenshot 3 — Relational Project Workspaces</h3>
+      <div class="screenshot-img-container">
+        <img src="docs/screenshots/projects-list.png" alt="Relational Project Workspaces">
+      </div>
+      
+      <div class="screenshot-details">
+        <div class="detail-group">
+          <div class="detail-label">What you're seeing</div>
+          <div class="detail-content">The dedicated Projects view listing active projects, their priority badges, assigned leads, and due dates.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">What the user can do</div>
+          <div class="detail-content">Therapists can search projects, filter items, add new projects, and view progress. Clicking a project navigates to its related tasks.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">What I implemented</div>
+          <div class="detail-content">Created the projects table component, implemented search capability, built custom priority badge styling, and mapped project leads to their database user records.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">How it works</div>
+          <div class="detail-content">The table fetches records from the NestJS <code>/api/projects</code> endpoint. TypeORM automatically resolves the relationship from Project to User, allowing the lead's name and initials avatar to display alongside the project details.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">Why it matters</div>
+          <div class="detail-content">Therapy targets are rarely standalone tasks; they are organized under structured plans. Providing a dedicated projects layer enables high-level program tracking.</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <!-- SCREENSHOT 4 -->
+    <div class="screenshot-block no-break">
+      <h3 class="screenshot-title">Screenshot 4 — Project Creation and Validation Form</h3>
+      <div class="screenshot-img-container">
+        <img src="docs/screenshots/projects-create.png" alt="Project Creation Form">
+      </div>
+      
+      <div class="screenshot-details">
+        <div class="detail-group">
+          <div class="detail-label">What you're seeing</div>
+          <div class="detail-content">The "Create New Project" inline creation form, expanded at the top of the Projects view.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">What the user can do</div>
+          <div class="detail-content">Users can input the new project's name, choose a priority (High/Medium/Low), assign a lead therapist from the populated team dropdown list, and set a due date using the date selector.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">What I implemented</div>
+          <div class="detail-content">Built the form state controllers, handled submit events, implemented form cancellation, and added client-side validation to ensure project name cannot be empty.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">How it works</div>
+          <div class="detail-content">On click of "Save Project", the frontend sends a POST request with the JSON payload to NestJS <code>/api/projects</code>. The backend uses class-validator ValidationPipes to sanitize and confirm the inputs. If valid, the backend saves the row in the SQLite database and returns the new project record, prompting the frontend to reload the list dynamically.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">Why it matters</div>
+          <div class="detail-content">Enabling quick inline creation streamlines data entry, saving busy therapists from navigating multiple page redirections just to log a new initiative.</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <!-- SCREENSHOT 5 -->
+    <div class="screenshot-block no-break">
+      <h3 class="screenshot-title">Screenshot 5 — Sidebar Profile Dropdown and Personalization Settings</h3>
+      <div class="screenshot-img-container">
+        <img src="docs/screenshots/theme-dropdown.png" alt="Sidebar Profile Dropdown">
+      </div>
+      
+      <div class="screenshot-details">
+        <div class="detail-group">
+          <div class="detail-label">What you're seeing</div>
+          <div class="detail-content">The profile context settings dropdown menu which expands from the therapist's profile in the sidebar.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">What the user can do</div>
+          <div class="detail-content">Therapists can view their email, switch between Light and Dark themes, toggle primary accent color configurations (Amber, Blue, Pink), and log out of their session.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">What I implemented</div>
+          <div class="detail-content">Created the profile dropdown layout, designed custom theme switcher items, integrated the theme selection with our state provider, and styled the overlay shadows.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">How it works</div>
+          <div class="detail-content">Selecting a theme or color updates the theme state context. This context dynamically injects class names (like <code>.dark</code> or <code>.accent-pink</code>) into the document root, changing the CSS variable definitions. The choice is instantly written to <code>localStorage</code>, so the system remembers the user's preference on return.</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">Why it matters</div>
+          <div class="detail-content">A visually comfortable workspace is essential for clinical environments. Giving therapists full control over contrast, dark mode, and focus accents increases overall comfort.</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <!-- 5. USER JOURNEY -->
+    <div class="no-break">
+      <h2 class="section-title">5. User Journey</h2>
+      <p>The following workflow map illustrates how a therapist interacts with the application to complete their caseload lifecycle management:</p>
+      
+      <div class="journey-flow">
+        <div class="journey-step">
+          <span class="step-number">1</span>
+          <span class="step-text">Access Portal → Select "Continue as Guest" to authenticate session</span>
+        </div>
+        <div class="journey-step">
+          <span class="step-number">2</span>
+          <span class="step-text">Workspace Loads → App queries NestJS API for Projects and Tasks list</span>
+        </div>
+        <div class="journey-step">
+          <span class="step-number">3</span>
+          <span class="step-text">Configure View → Set layout to List or Board; toggle required columns</span>
+        </div>
+        <div class="journey-step">
+          <span class="step-number">4</span>
+          <span class="step-text">Filter Caseload → Use real-time search bar to focus on specific student tasks</span>
+        </div>
+        <div class="journey-step">
+          <span class="step-number">5</span>
+          <span class="step-text">Submit Data → Open Project form, enter validated inputs, click Save</span>
+        </div>
+        <div class="journey-step">
+          <span class="step-number">6</span>
+          <span class="step-text">API & DB Sync → NestJS processes the POST, and writes project to SQLite</span>
+        </div>
+        <div class="journey-step">
+          <span class="step-number">7</span>
+          <span class="step-text">State Refresh → UI automatically re-fetches and renders the updated list</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 6. KEY FUNCTIONALITIES -->
+    <div class="page-break"></div>
+    <div class="no-break">
+      <h2 class="section-title">6. Key Functionalities</h2>
+      <p>The AbleSpace application is designed around three main clinical caseload functionalities:</p>
+      
+      <div class="grid">
+        <div class="card">
+          <div class="card-title">Adaptive Layouts & Grid Control</div>
+          <p style="font-size: 0.95rem; margin-bottom: 10px;">Allows users to toggle view types on the fly and customize the visibility of individual fields depending on screen size or workflow type.</p>
+          <div style="font-size: 0.85rem; color: var(--text-muted);"><strong>Concept Demonstrated</strong>: State Management, Dynamic CSS grid compilation</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Validated Data Submissions</div>
+          <p style="font-size: 0.95rem; margin-bottom: 10px;">Ensures all project and task details are validated on the client side before submission and verified on the server side using validation pipes.</p>
+          <div style="font-size: 0.85rem; color: var(--text-muted);"><strong>Concept Demonstrated</strong>: Data Integrity, DTO class validations</div>
+        </div>
+        <div class="card">
+          <div class="card-title">User Personalization System</div>
+          <p style="font-size: 0.95rem; margin-bottom: 10px;">Integrates multiple theme settings and accent color modes that synchronize with client-side local storage.</p>
+          <div style="font-size: 0.85rem; color: var(--text-muted);"><strong>Concept Demonstrated</strong>: React Context, LocalStorage state persistence</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Relational Data Mapping</div>
+          <p style="font-size: 0.95rem; margin-bottom: 10px;">Supports parent-child task grouping. Links tasks to projects and maps project leads directly to database records.</p>
+          <div style="font-size: 0.85rem; color: var(--text-muted);"><strong>Concept Demonstrated</strong>: Relational Database Design, Entity associations</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 7. TECHNICAL IMPLEMENTATION -->
+    <div class="no-break">
+      <h2 class="section-title">7. Technical Implementation</h2>
+      <p>The system is architected as a decoupled full-stack application using modern JavaScript web engineering patterns:</p>
+      
+      <h3 class="sub-section-title">Frontend</h3>
+      <p>Built with <strong>Next.js (App Router)</strong> and <strong>TypeScript</strong>. I styled the visual dashboard with <strong>Tailwind CSS</strong>, utilizing a custom-tailored dark default theme. Managed application preferences and settings globally using <strong>React Context Providers</strong>, syncing with <strong>LocalStorage</strong> to maintain user choices across sessions.</p>
+      
+      <h3 class="sub-section-title">Backend</h3>
+      <p>Developed with <strong>NestJS</strong>. Handled request parsing using validation pipes and DTOs. Exposed standard Rest API routes to perform basic operations on projects, tasks, and users.</p>
+      
+      <h3 class="sub-section-title">Database</h3>
+      <p>Configured <strong>TypeORM</strong> with a dynamically adaptive database driver. To circumvent the read-only filesystem limits of Vercel serverless platforms, I wrote configuration logic that switches between file-based <strong>better-sqlite3</strong> locally and in-memory WebAssembly <strong>sql.js</strong> in cloud production, ensuring flawless database performance in any environment.</p>
+      
+      <h3 class="sub-section-title">Development Practices</h3>
+      <ul>
+        <li><strong>Component-based architecture</strong>: Highly modularized code splitting (Sidebar, Views, Dropdowns, Modals) for optimal reusability.</li>
+        <li><strong>Strict Type Safety</strong>: Enforced end-to-end typing using TypeScript interfaces for both UI components and API entities.</li>
+        <li><strong>Robust E2E Tests</strong>: Automated integration checks using Jest to verify endpoint security and data return formats.</li>
+      </ul>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <!-- 8. WHAT THIS PROJECT DEMONSTRATES -->
+    <div class="no-break">
+      <h2 class="section-title">8. What This Project Demonstrates</h2>
+      <p>For engineering evaluators, this project serves as clear proof of full-stack development skills and ownership:</p>
+      <ul>
+        <li><strong>Product Lifecycle Management</strong>: Translating raw UI/UX specifications into fully interactive components.</li>
+        <li><strong>Architectural Decision Making</strong>: Finding solutions for cloud serverless storage limits (e.g. hotswapping database engines).</li>
+        <li><strong>Data Model Mapping</strong>: Designing schemas, linking foreign entities, and validating API transactions.</li>
+        <li><strong>Clean Coding Practices</strong>: Writing modularized, typed, and well-structured code that compiles cleanly.</li>
+        <li><strong>Production Engineering</strong>: Configuring pipelines, building production bundles, and deploying working public URLs.</li>
+      </ul>
+    </div>
+    
+    <!-- 9. CHALLENGES & PROBLEM SOLVING -->
+    <div class="no-break">
+      <h2 class="section-title">9. Challenges &amp; Problem Solving</h2>
+      
+      <div class="alert">
+        <div class="alert-title">Challenge: Read-only Serverless Cloud Filesystem Restrictions</div>
+        <p style="font-size: 0.95rem; margin-bottom: 0;"><strong>Problem</strong>: SQLite is a file-based engine. When deploying the NestJS backend to Vercel, the platform's read-only filesystem caused the TypeORM database to crash immediately because it could not write database files to the server root.<br>
+        <strong>Solution</strong>: I refactored the database configuration module. I hotswapped the database driver to use the WebAssembly-based <code>sqljs</code> engine inside cloud deployments, running the DB in-memory. I then updated <code>vercel.json</code> to bundle the necessary <code>sql-wasm.wasm</code> binaries so they load successfully at runtime, resolving the crash.</p>
+      </div>
+      
+      <div class="alert">
+        <div class="alert-title">Challenge: Static Route Exclusions on Serverless Platforms</div>
+        <p style="font-size: 0.95rem; margin-bottom: 0;"><strong>Problem</strong>: Next.js static exports crash when encountering dynamic routes like <code>/projects/[id]</code> because static compilers require predefined parameters at build time.<br>
+        <strong>Solution</strong>: I configured the frontend's build profile and routing configuration to dynamically render the routes, letting Vercel's routing engine handle client-side parameters cleanly without crashing.</p>
+      </div>
+    </div>
+    
+    <!-- 10. FINAL PRODUCT SNAPSHOT -->
+    <div class="page-break"></div>
+    <div class="no-break" style="text-align: center; padding-top: 40px;">
+      <h2 class="section-title" style="border: none; margin-bottom: 30px;">10. Final Product Snapshot</h2>
+      
+      <div class="cover-hero" style="margin-top: 0; margin-bottom: 40px;">
+        <img src="docs/screenshots/tasks-filters.png" alt="AbleSpace Product Dashboard Snapshot">
+      </div>
+      
+      <p style="font-size: 1.15rem; max-width: 650px; margin: 0 auto 30px auto; color: var(--primary); font-weight: 500;">
+        AbleSpace is a working implementation that brings together the application's interface, user flows, core functionality, and underlying technical components into one complete product experience.
+      </p>
+      
+      <div style="font-size: 0.95rem; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 20px; max-width: 300px; margin: 0 auto;">
+        Full-Stack Production Ready<br>
+        <strong>AbleSpace Caseload Manager</strong>
+      </div>
+    </div>
+    
+  </div>
+
+</body>
+</html>
